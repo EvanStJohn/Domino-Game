@@ -41,9 +41,10 @@ public class CPlayer {
         return hand.isEmpty();
     }
     
-    public void hasPlay()
+    public boolean hasPlay()
     {
         // will finish after domino class is complete
+        return true;
     }
     
 }
