@@ -10,10 +10,10 @@ public class CPlayer {
     private List<CDomino> hand;
     
     
-    public CPlayer (int idNum, List<CDomino> dominos)
+    public CPlayer (int idNum)
     {
         id = idNum;
-        hand = dominos;
+        hand = new ArrayList();
     }
     
     public List<CDomino> getHand()
