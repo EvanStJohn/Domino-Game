@@ -2,8 +2,8 @@ package dominos;
 
 
 public class CBoard {
-    int front;
-    int end;
+    private int front;
+    private int end;
     
     public CBoard() {
         front = 0;
@@ -11,28 +11,35 @@ public class CBoard {
     }
     
     public void playFirstTile(CDomino tile) {
-        front = tile.left;
-        end = tile.right;
+        front = tile.getLeft();
+        end = tile.getRight();
     }
     
     public void playTile(CDomino tile, int location) {
         //0 is end, 1 is front
-        //Check if play is playable in CGame
         if (location == 0) {
-            if (tile.left == end) {
-                end = tile.right;
+            if (tile.getLeft() == end) {
+                end = tile.getRight();
             }
             else {
-                end = tile.left;
+                end = tile.getLeft();
             }
         }
         if (location == 1) {
-            if (tile.left == front) {
-                front = tile.right;
+            if (tile.getLeft() == front) {
+                front = tile.getRight();
             }
             else {
-                front = tile.left;
+                front = tile.getLeft();
             }
         }
-    }   
+    }
+    
+    public int getFront() {
+    	return front;
+    }
+    
+    public int getEnd() {
+    	return end;
+    }
 }
