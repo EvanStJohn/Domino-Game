@@ -7,7 +7,7 @@ import java.util.*;
 public class CPlayer {
     
     private int id;
-    private List<CDomino> hand;
+    private ArrayList<CDomino> hand;
     
     
     public CPlayer (int idNum)
@@ -16,7 +16,7 @@ public class CPlayer {
         hand = new ArrayList();
     }
     
-    public List<CDomino> getHand()
+    public ArrayList getHand()
     {
         return hand;
     }
@@ -41,10 +41,46 @@ public class CPlayer {
         return hand.isEmpty();
     }
     
-    public boolean hasPlay()
+    public boolean hasPlay(int front, int end)
     {
+    	if (hand != null) {
+    		for (int i = 0; i < hand.size(); i++) {
+    			if (front == hand.get(i).getLeft() || front == hand.get(i).getRight()) {
+    				return true;
+    			}
+    			if (end == hand.get(i).getLeft() || end == hand.get(i).getRight()) {
+    				return true;
+    			}
+    		}
+    	}
         // will finish after domino class is complete
-        return true;
+        return false;
+    }
+    
+    public void showPlays(int front, int end) {
+    	if (hand != null) {
+    		for (int i = 0; i < hand.size(); i++) {
+    			if (front == hand.get(i).getLeft() || front == hand.get(i).getRight()) {
+    				hand.get(i).printH();
+    				System.out.print("Piece " + i + " Can be played at the front \n");
+    			}
+    			if (end == hand.get(i).getLeft() || end == hand.get(i).getRight()) {
+    				hand.get(i).printH();
+    				System.out.print("Piece " + i + " Can be played at the end \n");
+    			}
+    		}
+    		System.out.println();
+    	}
+    }
+    
+    public void showHand() {
+    	if (hand != null) {
+    		System.out.println("Here is your hand");
+    		for (int i = 0; i < hand.size(); i++ ) {
+    			hand.get(i).printH();
+    		}
+    		System.out.println();
+    	}
     }
     
 }
