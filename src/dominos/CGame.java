@@ -152,11 +152,16 @@ public class CGame {
         
         if (winner == 1) {
         	int score = score(otherPlayer);
-        	System.out.println("Player " + startingPlayer.getId() + " wins with " + score + " points");
+        	System.out.println("Player " + startingPlayer.getId() + " wins with " + score + " points.");
+        	System.out.println("Player " + otherPlayer.getId() + " finished the game with " + otherPlayer.getHand().size() + " dominos in hand. These dominos are: ");
+        	otherPlayer.showHand(); 
+        	
         }
         else if (winner == 2){
         	int score = score(startingPlayer);
         	System.out.println("Player " + otherPlayer.getId() + " wins with " + score + " points");
+        	System.out.println("Player " + startingPlayer.getId() + " finished the game with " + startingPlayer.getHand().size() + " dominos in hand. These dominos are: ");
+        	startingPlayer.showHand();
         }
         else {
         	System.out.println("Both players tied the tie breaker.");
@@ -180,6 +185,7 @@ public class CGame {
     		return 0;
     	}
     	else if (deck.size() > 0 && !currentPlayer.hasPlay(board.getFront(), board.getEnd())) {
+    		System.out.println("You currently have no available play. Draw a domino.");
     		deck.deal(currentPlayer);
     		if (currentPlayer.hasPlay(board.getFront(), board.getEnd())) {
     			currentPlayer.showHand();
@@ -194,6 +200,7 @@ public class CGame {
     			return 0;
     		}
     		else {
+    			System.out.println("You have already drawn a tile this turn, you must pass your turn.");
     			return 1;
     		}
     	}
@@ -311,7 +318,7 @@ public class CGame {
     //runs the game
     public static void main(String[] args) {
 
-        CGame game = new CGame(10);
+        CGame game = new CGame(7);
 
     }
 }
