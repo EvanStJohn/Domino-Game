@@ -311,7 +311,7 @@ public class CGame {
     //runs the game
     public static void main(String[] args) {
 
-        CGame game = new CGame(7);
+        CGame game = new CGame(10);
 
     }
 }
