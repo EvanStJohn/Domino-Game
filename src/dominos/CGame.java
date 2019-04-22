@@ -10,6 +10,7 @@ public class CGame {
     CPlayer p1;
     CPlayer p2;
     
+    //Constructor to set up game
     public CGame(int startHandSize) {
         //Create deck
         deck = new CDeck();
@@ -21,8 +22,8 @@ public class CGame {
         
         //Give hands
         for (int i = 0; i < startHandSize; i++) {
-            deck.deal(p1, 1);
-            deck.deal(p2, 1);
+            deck.deal(p1);
+            deck.deal(p2);
         }
         
         //Create Board
@@ -38,6 +39,7 @@ public class CGame {
 
     }
     
+    //determines starting player
     public int firstPlay() {
         int largestWeight = 0;
         int startingPlayer = 0;
@@ -70,7 +72,7 @@ public class CGame {
         return startingPlayer;
     }
     
-    //Have not completed this method
+    //dictates main flow of game
     public void Play(CPlayer startingPlayer, CPlayer otherPlayer) {
         
         int turn = 1;
@@ -80,20 +82,26 @@ public class CGame {
         ArrayList<CDomino> hand = startingPlayer.getHand();
         System.out.println("Player " + startingPlayer.getId() + ", place the first piece.");
         startingPlayer.showHand();
-        Scanner scan = new Scanner(System.in);
         boolean needInput = true;
         int tile = -1;
         
         while(needInput) {
-        	tile = scan.nextInt();
-        	if (hand.size() <= tile) {
-        		System.out.println("Please select a tile from your hand.");
+        	Scanner scan = new Scanner(System.in);
+        	if (scan.hasNextInt()) {
+        		tile = scan.nextInt();
+        		if (hand.size() > tile) {
+            		board.playFirstTile(hand.get(tile));
+            		startingPlayer.removePiece(hand.get(tile));
+            		needInput = false;
+        		}
+        		else {
+        			System.out.println("Please select a tile index within your hand.");
+        		}
         	}
         	else {
-        		board.playFirstTile(hand.get(tile));
-        		startingPlayer.removePiece(hand.get(tile));
-        		needInput = false;
+        		System.out.println("Please use an integer to specify an index of tile from your hand.");
         	}
+        	
         }
         
         while(cont) {
@@ -157,6 +165,7 @@ public class CGame {
         
     }
     
+    //determines how a player takes a turn
     public int takeTurn(CPlayer currentPlayer) {
     	
     	if (currentPlayer.hasPlay(board.getFront(), board.getEnd())) {
@@ -171,7 +180,7 @@ public class CGame {
     		return 0;
     	}
     	else if (deck.size() > 0 && !currentPlayer.hasPlay(board.getFront(), board.getEnd())) {
-    		deck.deal(currentPlayer, 1);
+    		deck.deal(currentPlayer);
     		if (currentPlayer.hasPlay(board.getFront(), board.getEnd())) {
     			currentPlayer.showHand();
         		currentPlayer.showPlays(board.getFront(), board.getEnd());
@@ -191,6 +200,7 @@ public class CGame {
     	return 1;
     }
     
+    //calculates score for the winning player
     public int score(CPlayer loser) {
     	ArrayList<CDomino> hand = loser.getHand();
     	int sum = 0;
@@ -200,6 +210,7 @@ public class CGame {
     	return sum;
     }
     
+    //if both players passed, determines winner
     public int bothPassed(CPlayer startingPlayer, CPlayer otherPlayer) {
     	int lowest = 100;
     	int winner = 0;
@@ -230,13 +241,15 @@ public class CGame {
     	return winner;
     }
     
+    //if a player can make a play, the player makes the decisions
     public boolean makePlay(CPlayer currentPlayer) {
 		
     	boolean takeTurnAgain = false;
-		Scanner scan = new Scanner(System.in);
+		
 		boolean needInput = true;
 		int tile = -1;
 		while(needInput) {
+			Scanner scan = new Scanner(System.in);
 			System.out.println("Which tile would you like to place?");
 			if (scan.hasNextInt()) {
 				tile = scan.nextInt();
@@ -250,8 +263,8 @@ public class CGame {
 		int location = -1;
 		needInput = true;
 		while(needInput) {
+			Scanner scan = new Scanner(System.in);
 			System.out.println("Would you like to place the tile at the front (1) or the end (0)?");
-			
 			if(scan.hasNextInt()) {
 				location = scan.nextInt();
 				needInput = false;
@@ -267,7 +280,7 @@ public class CGame {
 			takeTurnAgain = false;
 		}
 		else {
-			System.out.println("here4");
+			System.out.println("Invalid play. Please re-select tile and location");
 			takeTurnAgain = true;
 		}
 
@@ -276,6 +289,7 @@ public class CGame {
 		return takeTurnAgain;
     }
     
+    //determines if an inputed play is valid
     public boolean isValidPlay(CPlayer player, int tileIndex, int location) {
     	
     	ArrayList<CDomino> hand = player.getHand();
@@ -294,6 +308,7 @@ public class CGame {
     	
     }
     
+    //runs the game
     public static void main(String[] args) {
 
         CGame game = new CGame(7);
