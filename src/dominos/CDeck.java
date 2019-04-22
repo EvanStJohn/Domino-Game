@@ -8,6 +8,7 @@ public class CDeck {
     
     private List<CDomino> deck;
     
+    //constructor of the deck. Creates one domino of each type
     public CDeck()
     {
         deck = new ArrayList<CDomino>();
@@ -22,17 +23,20 @@ public class CDeck {
         }
     }
     
+    //shuffles deck
     public void shuffle()
     {
         Collections.shuffle(deck);
     }
     
+    //returns size of deck
     public int size()
     {
         return deck.size();
     }
     
-    public void deal(CPlayer player, int num)
+    //deals a tile to a player and removes it from the deck
+    public void deal(CPlayer player)
     {
         player.addPiece(deck.remove(0));
     }
