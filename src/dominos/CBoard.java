@@ -48,4 +48,10 @@ public class CBoard {
     public int getEnd() {
     	return end;
     }
+    
+    public void printBoard()
+    {
+        System.out.println("front: " + front);
+        System.out.println("end: " + end);
+    }
 }

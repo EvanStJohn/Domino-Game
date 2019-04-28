@@ -40,4 +40,9 @@ public class CDeck {
     {
         player.addPiece(deck.remove(0));
     }
+    
+    public List getDeck()
+    {
+        return deck;
+    }
 }
