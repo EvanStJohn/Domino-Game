@@ -142,15 +142,25 @@ public class CAi {
         }
     }
     
+    public int score(CPlayer loser) {
+    	ArrayList<CDomino> hand = loser.getHand();
+    	int sum = 0;
+    	for (int i = 0; i < hand.size(); i++) {
+    		sum += hand.get(i).getTotal();
+    	}
+    	return sum;
+    }
+    
     public void result()
     {
        if (winner == 1)
        {
-           System.out.println("Player 1 wins the game");
+           System.out.println("Player 1 wins the game with " + score(p2) + " points");
        }
        else if (winner == 2)
        {
            System.out.println("Player 2 wins the game");
+           System.out.println("Player 1 wins the game with " + score(p1) + " points");
        }
        else
        {
