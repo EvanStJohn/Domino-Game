@@ -159,8 +159,7 @@ public class CAi {
        }
        else if (winner == 2)
        {
-           System.out.println("Player 2 wins the game");
-           System.out.println("Player 1 wins the game with " + score(p1) + " points");
+           System.out.println("Player 2 wins the game with " + score(p1) + " points");
        }
        else
        {
